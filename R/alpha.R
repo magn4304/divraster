@@ -98,7 +98,7 @@ spat.alpha <- function(bin,
                        filename = "", ...) {
 
   # Initial tests
-  inputs_chk(bin1 = bin, tree = tree)
+  #inputs_chk(bin1 = bin, tree = tree)
 
   # Create numeric vector to store result
   resu <- numeric(1)
