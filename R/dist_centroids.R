@@ -53,27 +53,35 @@ dd.calc <- function(raster1, raster2) {
 
     # Function to determine the relative direction
     determine_direction <- function(coord1, coord2) {
-      dx <- coord2[1] - coord1[1]
-      dy <- coord2[2] - coord1[2]
-
-      if (dx == 0 && dy == 0) {
-        return("No change")
-      } else if (dx > 0 && dy > 0) {
-        return("Northeast")
-      } else if (dx > 0 && dy < 0) {
-        return("Southeast")
-      } else if (dx < 0 && dy > 0) {
-        return("Northwest")
-      } else if (dx < 0 && dy < 0) {
-        return("Southwest")
-      } else if (dx > 0 && dy == 0) {
-        return("East")
-      } else if (dx < 0 && dy == 0) {
-        return("West")
-      } else if (dx == 0 && dy > 0) {
-        return("North")
-      } else {
-        return("South")
+    # Compute differences
+    dx <- coord2[1] - coord1[1]
+    dy <- coord2[2] - coord1[2]
+  
+    # If there is no movement
+    if (dx == 0 && dy == 0) {
+      return("No change")
+    }
+  
+    # Calculate the angle in degrees
+    angle <- atan2(dy, dx) * (180 / pi)
+  
+    # Normalize angle to match 8 compass directions (each covering 45 degrees)
+    if (angle >= -22.5 && angle < 22.5) {
+      return("East")
+    } else if (angle >= 22.5 && angle < 67.5) {
+      return("Northeast")
+    } else if (angle >= 67.5 && angle < 112.5) {
+      return("North")
+    } else if (angle >= 112.5 && angle < 157.5) {
+    return("Northwest")
+    } else if (angle >= -67.5 && angle < -22.5) {
+      return("Southeast")
+    } else if (angle >= -112.5 && angle < -67.5) {
+      return("South")
+    } else if (angle >= -157.5 && angle < -112.5) {
+      return("Southwest")
+    } else {
+      return("West")
       }
     }
 
