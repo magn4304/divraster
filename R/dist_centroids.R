@@ -49,7 +49,7 @@ dd.calc <- function(raster1, raster2) {
     coords2 <- terra::crds(cent2)
 
     # Calculate the distance in meters (assuming the projection is appropriate)
-    dist_meters <- terra::distance(coords1, coords2, lonlat = TRUE)[1, 1]
+    dist_meters <- terra::distance(coords1, coords2, lonlat = FALSE)[1, 1]
 
     # Function to determine the relative direction
     determine_direction <- function(coord1, coord2) {
