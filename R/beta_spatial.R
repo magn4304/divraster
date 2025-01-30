@@ -142,7 +142,7 @@ spat.beta <- function(x, tree, filename = "", global = FALSE,
                       na.policy = "omit", ...) {
 
   # Initial tests
-  inputs_chk(bin1 = x, tree = tree)
+  #inputs_chk(bin1 = x, tree = tree)
 
   # Create focal matrix
   if (is.null(fm)) {
