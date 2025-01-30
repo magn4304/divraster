@@ -1,4 +1,4 @@
-Package: divraster
+Package: divrasterMFA
 Title: Diversity Metrics Calculations for Rasterized Data
 Version: 1.0.4
 Authors@R: c(
