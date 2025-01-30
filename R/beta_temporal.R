@@ -106,7 +106,7 @@ temp.beta <- function(bin1,
                       filename = "",
                       cores = 1, ...) {
   # Initial tests
-  inputs_chk(bin1 = bin1, bin2 = bin2, tree = tree)
+  #inputs_chk(bin1 = bin1, bin2 = bin2, tree = tree)
 
   # Get number of species
   nspp <- terra::nlyr(bin1)
