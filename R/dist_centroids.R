@@ -34,15 +34,46 @@ dd.calc <- function(raster1, raster2) {
     terra::values(layer1)[terra::values(layer1) != 1] <- NA
     terra::values(layer2)[terra::values(layer2) != 1] <- NA
 
-    # Calculate the centroids of the polygons
-    cent1 <- terra::centroids(terra::as.polygons(layer1))
-    cent2 <- terra::centroids(terra::as.polygons(layer2))
+    # Check the presence of valid geometries
+    has_poly1 <- length(poly1) > 0
+    has_poly2 <- length(poly2) > 0
 
-    # Handle the case where no centroids are found
-    if (nrow(terra::crds(cent1)) == 0 || nrow(terra::crds(cent2)) == 0) {
-      warning(paste("No centroids found in layer", i, "- skipping this layer."))
+    if (!has_poly1 & !has_poly2) {
+      warning(paste("No data in both layers for", names(raster1)[i], "- marking as Absent species."))
+      result <- data.frame(
+        Layer = names(raster1)[i],
+        Distance_meters = NA,
+        Direction = "Absent species"
+      )
+      results[[i]] <- result
       next
     }
+
+    if (!has_poly1 & has_poly2) {
+      warning(paste("No data in the first layer for", names(raster1)[i], "- marking as Novel species."))
+      result <- data.frame(
+        Layer = names(raster1)[i],
+        Distance_meters = NA,
+        Direction = "Novel species"
+      )
+      results[[i]] <- result
+      next
+    }
+
+    if (has_poly1 & !has_poly2) {
+      warning(paste("No data in the second layer for", names(raster1)[i], "- marking as Locally extinct."))
+      result <- data.frame(
+        Layer = names(raster1)[i],
+        Distance_meters = NA,
+        Direction = "Locally extinct"
+      )
+      results[[i]] <- result
+      next
+    }
+
+    # Calculate the centroids of the polygons
+    cent1 <- terra::centroids(poly1)
+    cent2 <- terra::centroids(poly2)
 
     # Get the coordinates of the centroids
     coords1 <- terra::crds(cent1)
