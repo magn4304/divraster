@@ -34,6 +34,10 @@ dd.calc <- function(raster1, raster2) {
     terra::values(layer1)[terra::values(layer1) != 1] <- NA
     terra::values(layer2)[terra::values(layer2) != 1] <- NA
 
+    # Convert to polygons
+    poly1 <- terra::as.polygons(layer1)
+    poly2 <- terra::as.polygons(layer2)
+
     # Check the presence of valid geometries
     has_poly1 <- length(poly1) > 0
     has_poly2 <- length(poly2) > 0
