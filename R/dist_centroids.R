@@ -99,24 +99,27 @@ dd.calc <- function(raster1, raster2) {
   
     # Calculate the angle in degrees
     angle <- atan2(dy, dx) * (180 / pi)
+
+    # Get compass direction (angle)
+    compass_angle <- 90 - angle
   
     # Normalize angle to match 8 compass directions (each covering 45 degrees)
     if (angle >= -22.5 && angle < 22.5) {
-      return("East")
+      return("East", compass_angle)
     } else if (angle >= 22.5 && angle < 67.5) {
-      return("Northeast")
+      return("Northeast", compass_angle)
     } else if (angle >= 67.5 && angle < 112.5) {
-      return("North")
+      return("North", compass_angle)
     } else if (angle >= 112.5 && angle < 157.5) {
-    return("Northwest")
+    return("Northwest", compass_angle)
     } else if (angle >= -67.5 && angle < -22.5) {
-      return("Southeast")
+      return("Southeast", compass_angle)
     } else if (angle >= -112.5 && angle < -67.5) {
-      return("South")
+      return("South", compass_angle)
     } else if (angle >= -157.5 && angle < -112.5) {
-      return("Southwest")
+      return("Southwest", compass_angle)
     } else {
-      return("West")
+      return("West", compass_angle)
       }
     }
 
@@ -127,7 +130,8 @@ dd.calc <- function(raster1, raster2) {
     result <- data.frame(
       Layer = names(raster1)[i],
       Distance_meters = dist_meters,
-      Direction = direction
+      Direction = direction[1],
+      Compass_angle = direction[2]
     )
 
     # Add the result to the list
