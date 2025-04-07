@@ -104,7 +104,7 @@ dd.calc <- function(raster1, raster2) {
     angle <- atan2(dy, dx) * (180 / pi)
 
     # Get compass direction (angle)
-    compass_angle <- 90 - angle
+    compass_angle <- (450 - angle) %% 360
   
     # Normalize angle to match 8 compass directions (each covering 45 degrees)
     if (angle >= -22.5 && angle < 22.5) {
