@@ -47,7 +47,8 @@ dd.calc <- function(raster1, raster2) {
       result <- data.frame(
         Layer = names(raster1)[i],
         Distance_meters = NA,
-        Direction = "Absent species"
+        Direction = "Absent species",
+        Compass_angle = NA
       )
       results[[i]] <- result
       next
@@ -58,7 +59,8 @@ dd.calc <- function(raster1, raster2) {
       result <- data.frame(
         Layer = names(raster1)[i],
         Distance_meters = NA,
-        Direction = "Novel species"
+        Direction = "Novel species",
+        Compass_angle = NA
       )
       results[[i]] <- result
       next
@@ -69,7 +71,8 @@ dd.calc <- function(raster1, raster2) {
       result <- data.frame(
         Layer = names(raster1)[i],
         Distance_meters = NA,
-        Direction = "Locally extinct"
+        Direction = "Locally extinct",
+        Compass_angle = NA
       )
       results[[i]] <- result
       next
@@ -94,7 +97,7 @@ dd.calc <- function(raster1, raster2) {
   
     # If there is no movement
     if (dx == 0 && dy == 0) {
-      return("No change")
+      return(list(direction = "No change", angle = NA))
     }
   
     # Calculate the angle in degrees
@@ -130,8 +133,8 @@ dd.calc <- function(raster1, raster2) {
     result <- data.frame(
       Layer = names(raster1)[i],
       Distance_meters = dist_meters,
-      Direction = direction[1],
-      Compass_angle = direction[2]
+      Direction = direction$direction,
+      Compass_angle = direction$angle
     )
 
     # Add the result to the list
